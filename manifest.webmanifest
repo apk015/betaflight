@@ -1,0 +1,21 @@
+{
+  "name": "Betaflight Configurator",
+  "short_name": "Betaflight",
+  "description": "Configuration and management tool for the Betaflight flight control firmware",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "assets/favicon-33996469.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "assets/apple-touch-icon-07eae208.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}

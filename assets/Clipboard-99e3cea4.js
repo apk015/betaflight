@@ -1,0 +1,1 @@
+class i{constructor(){this.writeText=null,this.readText=null}writeText(t,r,a){navigator.clipboard.writeText(t).then(()=>r==null?void 0:r(t),a)}readText(t,r){navigator.clipboard.readText().then(a=>t==null?void 0:t(a),r)}}const d=new i;export{d as C};
