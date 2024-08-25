@@ -41101,7 +41101,7 @@ function Uy() {
                 }),
                 s) {
                 case "landing":
-                    ut(()=>import("./betaflight/assets/landing-0e9410fb.js"), ["assets/landing-0e9410fb.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css", "./betaflight/assets/Sponsor-b3b14c28.js"]).then(({landing: u})=>u.initialize(c));
+                    ut(()=>import("./betaflight/assets/landing-0e9410fb.js"), ["./betaflight/assets/landing-0e9410fb.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css", "./betaflight/assets/Sponsor-b3b14c28.js"]).then(({landing: u})=>u.initialize(c));
                     break;
                 case "changelog":
                     ut(()=>import("./static_tab-d23fd437.js"), ["assets/static_tab-d23fd437.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css"]).then(({staticTab: u})=>u.initialize("changelog", c));
