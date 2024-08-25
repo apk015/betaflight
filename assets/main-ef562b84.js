@@ -41101,88 +41101,88 @@ function Uy() {
                 }),
                 s) {
                 case "landing":
-                    ut(()=>import("./landing-0e9410fb.js"), ["assets/landing-0e9410fb.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/Sponsor-b3b14c28.js"]).then(({landing: u})=>u.initialize(c));
+                    ut(()=>import("./landing-0e9410fb.js"), ["assets/landing-0e9410fb.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/Sponsor-b3b14c28.js"]).then(({landing: u})=>u.initialize(c));
                     break;
                 case "changelog":
-                    ut(()=>import("./static_tab-d23fd437.js"), ["assets/static_tab-d23fd437.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({staticTab: u})=>u.initialize("changelog", c));
+                    ut(()=>import("./static_tab-d23fd437.js"), ["assets/static_tab-d23fd437.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({staticTab: u})=>u.initialize("changelog", c));
                     break;
                 case "privacy_policy":
-                    ut(()=>import("./static_tab-d23fd437.js"), ["assets/static_tab-d23fd437.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({staticTab: u})=>u.initialize("privacy_policy", c));
+                    ut(()=>import("./static_tab-d23fd437.js"), ["assets/static_tab-d23fd437.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({staticTab: u})=>u.initialize("privacy_policy", c));
                     break;
                 case "options":
-                    ut(()=>import("./options-d60ef843.js"), ["assets/options-d60ef843.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({options: u})=>u.initialize(c));
+                    ut(()=>import("./options-d60ef843.js"), ["assets/options-d60ef843.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({options: u})=>u.initialize(c));
                     break;
                 case "firmware_flasher":
-                    ut(()=>import("./firmware_flasher-00b09d70.js"), ["assets/firmware_flasher-00b09d70.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/Sponsor-b3b14c28.js", "assets/generate_filename-b24904f0.js"]).then(({firmware_flasher: u})=>u.initialize(c));
+                    ut(()=>import("./firmware_flasher-00b09d70.js"), ["assets/firmware_flasher-00b09d70.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/Sponsor-b3b14c28.js", "assets/generate_filename-b24904f0.js"]).then(({firmware_flasher: u})=>u.initialize(c));
                     break;
                 case "help":
-                    ut(()=>import("./help-767fa382.js"), ["assets/help-767fa382.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({help: u})=>u.initialize(c));
+                    ut(()=>import("./help-767fa382.js"), ["assets/help-767fa382.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({help: u})=>u.initialize(c));
                     break;
                 case "auxiliary":
-                    ut(()=>import("./auxiliary-6f2b4454.js"), ["assets/auxiliary-6f2b4454.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/peripherals-70131f15.js"]).then(({auxiliary: u})=>u.initialize(c));
+                    ut(()=>import("./auxiliary-6f2b4454.js"), ["assets/auxiliary-6f2b4454.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/peripherals-70131f15.js"]).then(({auxiliary: u})=>u.initialize(c));
                     break;
                 case "adjustments":
-                    ut(()=>import("./adjustments-c92ab150.js"), ["assets/adjustments-c92ab150.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({adjustments: u})=>u.initialize(c));
+                    ut(()=>import("./adjustments-c92ab150.js"), ["assets/adjustments-c92ab150.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({adjustments: u})=>u.initialize(c));
                     break;
                 case "ports":
-                    ut(()=>import("./ports-e5caeaef.js"), ["assets/ports-e5caeaef.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({ports: u})=>u.initialize(c));
+                    ut(()=>import("./ports-e5caeaef.js"), ["assets/ports-e5caeaef.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({ports: u})=>u.initialize(c));
                     break;
                 case "led_strip":
-                    ut(()=>import("./led_strip-9d94e577.js"), ["assets/led_strip-9d94e577.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({led_strip: u})=>u.initialize(c));
+                    ut(()=>import("./led_strip-9d94e577.js"), ["assets/led_strip-9d94e577.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({led_strip: u})=>u.initialize(c));
                     break;
                 case "failsafe":
-                    ut(()=>import("./failsafe-9fed1ad0.js"), ["assets/failsafe-9fed1ad0.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/peripherals-70131f15.js"]).then(({failsafe: u})=>u.initialize(c));
+                    ut(()=>import("./failsafe-9fed1ad0.js"), ["assets/failsafe-9fed1ad0.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/peripherals-70131f15.js"]).then(({failsafe: u})=>u.initialize(c));
                     break;
                 case "transponder":
-                    ut(()=>import("./transponder-d6456e23.js"), ["assets/transponder-d6456e23.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({transponder: u})=>u.initialize(c));
+                    ut(()=>import("./transponder-d6456e23.js"), ["assets/transponder-d6456e23.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({transponder: u})=>u.initialize(c));
                     break;
                 case "osd":
                     ut(()=>Promise.resolve().then(()=>Ig), void 0).then(({osd: u})=>u.initialize(c));
                     break;
                 case "vtx":
-                    ut(()=>import("./vtx-d162f309.js"), ["assets/vtx-d162f309.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/generate_filename-b24904f0.js", "assets/Clipboard-99e3cea4.js"]).then(({vtx: u})=>u.initialize(c));
+                    ut(()=>import("./vtx-d162f309.js"), ["assets/vtx-d162f309.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/generate_filename-b24904f0.js", "assets/Clipboard-99e3cea4.js"]).then(({vtx: u})=>u.initialize(c));
                     break;
                 case "power":
-                    ut(()=>import("./power-67b84536.js"), ["assets/power-67b84536.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({power: u})=>u.initialize(c));
+                    ut(()=>import("./power-67b84536.js"), ["assets/power-67b84536.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({power: u})=>u.initialize(c));
                     break;
                 case "setup":
-                    ut(()=>import("./setup-edc38aca.js"), ["assets/setup-edc38aca.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({setup: u})=>u.initialize(c));
+                    ut(()=>import("./setup-edc38aca.js"), ["assets/setup-edc38aca.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({setup: u})=>u.initialize(c));
                     break;
                 case "setup_osd":
-                    ut(()=>import("./setup_osd-fd36bc3b.js"), ["assets/setup_osd-fd36bc3b.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({setup_osd: u})=>u.initialize(c));
+                    ut(()=>import("./setup_osd-fd36bc3b.js"), ["assets/setup_osd-fd36bc3b.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({setup_osd: u})=>u.initialize(c));
                     break;
                 case "configuration":
-                    ut(()=>import("./configuration-6e32c08a.js"), ["assets/configuration-6e32c08a.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({configuration: u})=>u.initialize(c));
+                    ut(()=>import("./configuration-6e32c08a.js"), ["assets/configuration-6e32c08a.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({configuration: u})=>u.initialize(c));
                     break;
                 case "pid_tuning":
-                    ut(()=>import("./pid_tuning-805726c5.js"), ["assets/pid_tuning-805726c5.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/RateCurve-9b68418d.js"]).then(({pid_tuning: u})=>u.initialize(c));
+                    ut(()=>import("./pid_tuning-805726c5.js"), ["assets/pid_tuning-805726c5.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/RateCurve-9b68418d.js"]).then(({pid_tuning: u})=>u.initialize(c));
                     break;
                 case "receiver":
-                    ut(()=>import("./receiver-66e205b6.js"), ["assets/receiver-66e205b6.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/RateCurve-9b68418d.js", "assets/transform-8625d4bb.js"]).then(({receiver: u})=>u.initialize(c));
+                    ut(()=>import("./receiver-66e205b6.js"), ["assets/receiver-66e205b6.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/RateCurve-9b68418d.js", "assets/transform-8625d4bb.js"]).then(({receiver: u})=>u.initialize(c));
                     break;
                 case "servos":
-                    ut(()=>import("./servos-c9f38ed2.js"), ["assets/servos-c9f38ed2.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({servos: u})=>u.initialize(c));
+                    ut(()=>import("./servos-c9f38ed2.js"), ["assets/servos-c9f38ed2.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({servos: u})=>u.initialize(c));
                     break;
                 case "gps":
-                    ut(()=>import("./gps-77d606d5.js"), ["assets/gps-77d606d5.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({gps: u})=>u.initialize(c));
+                    ut(()=>import("./gps-77d606d5.js"), ["assets/gps-77d606d5.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css"]).then(({gps: u})=>u.initialize(c));
                     break;
                 case "motors":
-                    ut(()=>import("./motors-7a86d403.js"), ["assets/motors-7a86d403.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/transform-8625d4bb.js", "assets/extent-4cf1c809.js"]).then(({motors: u})=>u.initialize(c));
+                    ut(()=>import("./motors-7a86d403.js"), ["assets/motors-7a86d403.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/transform-8625d4bb.js", "assets/extent-4cf1c809.js"]).then(({motors: u})=>u.initialize(c));
                     break;
                 case "sensors":
-                    ut(()=>import("./sensors-875adab4.js"), ["assets/sensors-875adab4.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/transform-8625d4bb.js", "assets/debug-93e45576.js", "assets/extent-4cf1c809.js"]).then(({sensors: u})=>u.initialize(c));
+                    ut(()=>import("./sensors-875adab4.js"), ["assets/sensors-875adab4.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/transform-8625d4bb.js", "assets/debug-93e45576.js", "assets/extent-4cf1c809.js"]).then(({sensors: u})=>u.initialize(c));
                     break;
                 case "logging":
-                    ut(()=>import("./logging-d1e7d8ef.js"), ["assets/logging-d1e7d8ef.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/generate_filename-b24904f0.js"]).then(({logging: u})=>u.initialize(c));
+                    ut(()=>import("./logging-d1e7d8ef.js"), ["assets/logging-d1e7d8ef.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/generate_filename-b24904f0.js"]).then(({logging: u})=>u.initialize(c));
                     break;
                 case "onboard_logging":
-                    ut(()=>import("./onboard_logging-5c5118b1.js"), ["assets/onboard_logging-5c5118b1.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/generate_filename-b24904f0.js", "assets/debug-93e45576.js"]).then(({onboard_logging: u})=>u.initialize(c));
+                    ut(()=>import("./onboard_logging-5c5118b1.js"), ["assets/onboard_logging-5c5118b1.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/generate_filename-b24904f0.js", "assets/debug-93e45576.js"]).then(({onboard_logging: u})=>u.initialize(c));
                     break;
                 case "cli":
-                    ut(()=>import("./cli-55a7a739.js"), ["assets/cli-55a7a739.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/Clipboard-99e3cea4.js", "assets/generate_filename-b24904f0.js"]).then(({cli: u})=>u.initialize(c));
+                    ut(()=>import("./cli-55a7a739.js"), ["assets/cli-55a7a739.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/Clipboard-99e3cea4.js", "assets/generate_filename-b24904f0.js"]).then(({cli: u})=>u.initialize(c));
                     break;
                 case "presets":
-                    ut(()=>import("./presets-aa75a269.js"), ["assets/presets-aa75a269.js", "./assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/generate_filename-b24904f0.js"]).then(({presets: u})=>u.initialize(c));
+                    ut(()=>import("./presets-aa75a269.js"), ["assets/presets-aa75a269.js", "./betaflight/assets/DarkTheme-2fd54461.js", "assets/DarkTheme-3dad4777.css", "assets/generate_filename-b24904f0.js"]).then(({presets: u})=>u.initialize(c));
                     break;
                 default:
                     console.log(`Tab not found: ${s}`)
