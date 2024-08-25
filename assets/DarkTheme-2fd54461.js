@@ -19977,11 +19977,11 @@ var Gt = It.exports
   , qt = Object.hasOwn || function(gh, vh) {
     return Yt(Vt(gh), vh)
 }
-  , Xt = B
-  , Jt = 0
-  , Zt = Math.random()
-  , Qt = Xt((1.toString)
-  , te = function(gh) {
+, Xt = B
+, Jt = 0
+, Zt = Math.random()
+, Qt = Xt((1).toString)  // Fixed by using parentheses
+, te = function(gh) {
     return "Symbol(" + (gh === void 0 ? "" : gh) + ")_" + Qt(++Jt + Zt, 36)
 }
   , ee = Gt
