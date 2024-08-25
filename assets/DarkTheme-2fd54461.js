@@ -39505,32 +39505,32 @@ const serial$1 = new WebSerial
 }];
 class BT extends EventTarget {
     constructor() {
-        if (super(),
-        !this.bluetooth && window && window.navigator && window.navigator.bluetooth)
+        super();
+        if (!this.bluetooth && window && window.navigator && window.navigator.bluetooth) {
             this.bluetooth = navigator.bluetooth;
-        else {
+        } else {
             console.error(`${this.logHead} Bluetooth API not available`);
-            return
+            return;
         }
-        this.connected = !1,
-        this.openRequested = !1,
-        this.openCanceled = !1,
-        this.closeRequested = !1,
-        this.transmitting = !1,
-        this.connectionInfo = null,
-        this.bitrate = 0,
-        this.bytesSent = 0,
-        this.bytesReceived = 0,
-        this.failed = 0,
-        this.logHead = "[BLUETOOTH]",
-        this.portCounter = 0,
-        this.devices = [],
-        this.device = null,
-        this.connect = this.connect.bind(this),
-        this.bluetooth.addEventListener("connect", vh=>this.handleNewDevice(vh.target)),
-        this.bluetooth.addEventListener("disconnect", vh=>this.handleRemovedDevice(vh.target)),
-        this.bluetooth.addEventListener("gatserverdisconnected", vh=>this.handleRemovedDevice(vh.target)),
-        // Removed direct call to loadDevices here
+        this.connected = false;
+        this.openRequested = false;
+        this.openCanceled = false;
+        this.closeRequested = false;
+        this.transmitting = false;
+        this.connectionInfo = null;
+        this.bitrate = 0;
+        this.bytesSent = 0;
+        this.bytesReceived = 0;
+        this.failed = 0;
+        this.logHead = "[BLUETOOTH]";
+        this.portCounter = 0;
+        this.devices = [];
+        this.device = null;
+        this.connect = this.connect.bind(this);
+        this.bluetooth.addEventListener("connect", vh => this.handleNewDevice(vh.target));
+        this.bluetooth.addEventListener("disconnect", vh => this.handleRemovedDevice(vh.target));
+        this.bluetooth.addEventListener("gatserverdisconnected", vh => this.handleRemovedDevice(vh.target));
+        // Remove the direct call to loadDevices here
         // this.loadDevices();
     }
 
@@ -39539,14 +39539,53 @@ class BT extends EventTarget {
         await this.loadDevices();
     }
 
-    // Updated loadDevices method to handle user gesture requirement
+    handleNewDevice(vh) {
+        const yh = this.createPort(vh);
+        this.devices.push(yh);
+        this.dispatchEvent(new CustomEvent("addedDevice", {
+            detail: yh
+        }));
+        return yh;
+    }
+
+    handleRemovedDevice(vh) {
+        const yh = this.devices.find(bh => bh.port === vh);
+        this.devices = this.devices.filter(bh => bh.port !== vh);
+        this.dispatchEvent(new CustomEvent("removedDevice", {
+            detail: yh
+        }));
+    }
+
+    handleReceiveBytes(vh) {
+        this.bytesReceived += vh.detail.byteLength;
+    }
+
+    handleDisconnect() {
+        this.disconnect();
+        this.closeRequested = true;
+    }
+
+    getConnectedPort() {
+        return this.device;
+    }
+
+    createPort(vh) {
+        return {
+            path: `bluetooth_${this.portCounter++}`,
+            displayName: vh.name,
+            vendorId: "unknown",
+            productId: vh.id,
+            port: vh
+        };
+    }
+
     async loadDevices() {
         try {
             const device = await this.bluetooth.requestDevice({
                 acceptAllDevices: true,
                 optionalServices: ['battery_service'] // Add your required services here
             });
-            
+
             if (device) {
                 this.portCounter = 1;
                 this.devices = [this.createPort(device)];
@@ -39559,221 +39598,193 @@ class BT extends EventTarget {
         }
     }
 
-    handleNewDevice(vh) {
-        const yh = this.createPort(vh);
-        return this.devices.push(yh),
-        this.dispatchEvent(new CustomEvent("addedDevice",{
-            detail: yh
-        })),
-        yh
-    }
-
-    handleRemovedDevice(vh) {
-        const yh = this.devices.find(bh=>bh.port === vh);
-        this.devices = this.devices.filter(bh=>bh.port !== vh),
-        this.dispatchEvent(new CustomEvent("removedDevice",{
-            detail: yh
-        }))
-    }
-
-    handleReceiveBytes(vh) {
-        this.bytesReceived += vh.detail.byteLength
-    }
-
-    handleDisconnect() {
-        this.disconnect(),
-        this.closeRequested = !0
-    }
-
-    getConnectedPort() {
-        return this.device
-    }
-
-    createPort(vh) {
-        return {
-            path: `bluetooth_${this.portCounter++}`,
-            displayName: vh.name,
-            vendorId: "unknown",
-            productId: vh.id,
-            port: vh
-        }
-    }
-
     async requestPermissionDevice() {
         let vh = null;
         const yh = [];
-        bluetoothDevices.forEach(wh=>{
-            yh.push(wh.serviceUuid)
+        bluetoothDevices.forEach(wh => {
+            yh.push(wh.serviceUuid);
         });
         const bh = {
-            acceptAllDevices: !0,
+            acceptAllDevices: true,
             optionalServices: yh
         };
         try {
             const wh = await this.bluetooth.requestDevice(bh);
-            vh = this.devices.find(Ch=>Ch.port === wh),
-            vh || (vh = this.handleNewDevice(wh)),
-            console.info(`${this.logHead} User selected Bluetooth device from permissions:`, vh.path)
+            vh = this.devices.find(Ch => Ch.port === wh);
+            vh || (vh = this.handleNewDevice(wh));
+            console.info(`${this.logHead} User selected Bluetooth device from permissions:`, vh.path);
         } catch (wh) {
-            console.error(`${this.logHead} User didn't select any Bluetooth device when requesting permission:`, wh)
+            console.error(`${this.logHead} User didn't select any Bluetooth device when requesting permission:`, wh);
         }
-        return vh
+        return vh;
     }
 
     async getDevices() {
-        return this.devices
+        return this.devices;
     }
 
     getAvailability() {
-        this.bluetooth.getAvailability().then(vh=>(console.log(`${this.logHead} Bluetooth available:`, vh),
-        this.available = vh,
-        vh))
+        this.bluetooth.getAvailability().then(vh => {
+            console.log(`${this.logHead} Bluetooth available:`, vh);
+            this.available = vh;
+            return vh;
+        });
     }
 
     async connect(vh, yh) {
-        this.openRequested = !0,
-        this.closeRequested = !1,
-        this.device = this.devices.find(wh=>wh.path === vh).port,
-        console.log(`${this.logHead} Opening connection with ID: ${vh}, Baud: ${yh.baudRate}`),
+        this.openRequested = true;
+        this.closeRequested = false;
+        this.device = this.devices.find(wh => wh.path === vh).port;
+        console.log(`${this.logHead} Opening connection with ID: ${vh}, Baud: ${yh.baudRate}`);
         this.device.addEventListener("gattserverdisconnected", this.handleDisconnect.bind(this));
         try {
-            console.log(`${this.logHead} Connecting to GATT Server`),
-            await this.gattConnect(),
-            gui_log(i18n$1.getMessage("bluetoothConnected", [this.device.name])),
-            await this.getServices(),
-            await this.getCharacteristics(),
-            await this.startNotifications()
+            console.log(`${this.logHead} Connecting to GATT Server`);
+            await this.gattConnect();
+            gui_log(i18n$1.getMessage("bluetoothConnected", [this.device.name]));
+            await this.getServices();
+            await this.getCharacteristics();
+            await this.startNotifications();
         } catch (wh) {
-            gui_log(i18n$1.getMessage("bluetoothConnectionError", [wh]))
+            gui_log(i18n$1.getMessage("bluetoothConnectionError", [wh]));
         }
         const bh = this.device.gatt.connected;
-        bh && !this.openCanceled ? (this.connected = !0,
-        this.connectionId = this.device.port,
-        this.bitrate = yh.baudRate,
-        this.bytesReceived = 0,
-        this.bytesSent = 0,
-        this.failed = 0,
-        this.openRequested = !1,
-        this.device.addEventListener("disconnect", this.handleDisconnect.bind(this)),
-        this.addEventListener("receive", this.handleReceiveBytes),
-        console.log(`${this.logHead} Connection opened with ID: ${this.connectionId}, Baud: ${yh.baudRate}`),
-        this.dispatchEvent(new CustomEvent("connect",{
-            detail: bh
-        }))) : bh && this.openCanceled ? (this.connectionId = this.device.port,
-        console.log(`${this.logHead} Connection opened with ID: ${bh.connectionId}, but request was canceled, disconnecting`),
-        setTimeout(()=>{
-            this.openRequested = !1,
-            this.openCanceled = !1,
-            this.disconnect(()=>{
-                this.dispatchEvent(new CustomEvent("connect",{
-                    detail: !1
-                }))
-            })
-        }, 150)) : this.openCanceled ? (console.log(`${this.logHead} Connection didn't open and request was canceled`),
-        this.openRequested = !1,
-        this.openCanceled = !1,
-        this.dispatchEvent(new CustomEvent("connect",{
-            detail: !1
-        }))) : (this.openRequested = !1,
-        console.log(`${this.logHead} Failed to open bluetooth port`),
-        this.dispatchEvent(new CustomEvent("connect",{
-            detail: !1
-        })))
+        if (bh && !this.openCanceled) {
+            this.connected = true;
+            this.connectionId = this.device.port;
+            this.bitrate = yh.baudRate;
+            this.bytesReceived = 0;
+            this.bytesSent = 0;
+            this.failed = 0;
+            this.openRequested = false;
+            this.device.addEventListener("disconnect", this.handleDisconnect.bind(this));
+            this.addEventListener("receive", this.handleReceiveBytes);
+            console.log(`${this.logHead} Connection opened with ID: ${this.connectionId}, Baud: ${yh.baudRate}`);
+            this.dispatchEvent(new CustomEvent("connect", {
+                detail: bh
+            }));
+        } else if (bh && this.openCanceled) {
+            this.connectionId = this.device.port;
+            console.log(`${this.logHead} Connection opened with ID: ${bh.connectionId}, but request was canceled, disconnecting`);
+            setTimeout(() => {
+                this.openRequested = false;
+                this.openCanceled = false;
+                this.disconnect(() => {
+                    this.dispatchEvent(new CustomEvent("connect", {
+                        detail: false
+                    }));
+                });
+            }, 150);
+        } else if (this.openCanceled) {
+            console.log(`${this.logHead} Connection didn't open and request was canceled`);
+            this.openRequested = false;
+            this.openCanceled = false;
+            this.dispatchEvent(new CustomEvent("connect", {
+                detail: false
+            }));
+        } else {
+            this.openRequested = false;
+            console.log(`${this.logHead} Failed to open bluetooth port`);
+            this.dispatchEvent(new CustomEvent("connect", {
+                detail: false
+            }));
+        }
     }
 
     async gattConnect() {
-        var vh;
-        this.server = await ((vh = this.device.gatt) == null ? void 0 : vh.connect())
+        this.server = await this.device.gatt?.connect();
     }
 
     async getServices() {
-        if (console.log(`${this.logHead} Get primary services`),
-        this.services = await this.server.getPrimaryServices(),
-        this.service = this.services.find(vh=>(this.deviceDescription = bluetoothDevices.find(yh=>yh.serviceUuid == vh.uuid),
-        this.deviceDescription)),
-        !this.deviceDescription)
-            throw new Error("Unsupported device");
-        return gui_log(i18n$1.getMessage("bluetoothConnectionType", [this.deviceDescription.name])),
-        console.log(`${this.logHead} Connected to service:`, this.service.uuid),
-        this.service
+        console.log(`${this.logHead} Get primary services`);
+        this.services = await this.server.getPrimaryServices();
+        this.service = this.services.find(vh => {
+            this.deviceDescription = bluetoothDevices.find(yh => yh.serviceUuid == vh.uuid);
+            return this.deviceDescription;
+        });
+        if (!this.deviceDescription) throw new Error("Unsupported device");
+        gui_log(i18n$1.getMessage("bluetoothConnectionType", [this.deviceDescription.name]));
+        console.log(`${this.logHead} Connected to service:`, this.service.uuid);
+        return this.service;
     }
 
     async getCharacteristics() {
-        if ((await this.service.getCharacteristics()).forEach(yh=>(yh.uuid == this.deviceDescription.writeCharacteristic && (this.writeCharacteristic = yh),
-        yh.uuid == this.deviceDescription.readCharacteristic && (this.readCharacteristic = yh),
-        this.writeCharacteristic && this.readCharacteristic)),
-        !this.writeCharacteristic)
-            throw new Error("Unexpected write characteristic found - should be",this.deviceDescription.writeCharacteristic);
+        const characteristics = await this.service.getCharacteristics();
+        characteristics.forEach(yh => {
+            if (yh.uuid == this.deviceDescription.writeCharacteristic) this.writeCharacteristic = yh;
+            if (yh.uuid == this.deviceDescription.readCharacteristic) this.readCharacteristic = yh;
+        });
+        if (!this.writeCharacteristic)
+            throw new Error("Unexpected write characteristic found - should be", this.deviceDescription.writeCharacteristic);
         if (!this.readCharacteristic)
-            throw new Error("Unexpected read characteristic found - should be",this.deviceDescription.readCharacteristic);
-        return this.readCharacteristic.addEventListener("characteristicvaluechanged", this.handleNotification.bind(this)),
-        await this.readCharacteristic.readValue()
+            throw new Error("Unexpected read characteristic found - should be", this.deviceDescription.readCharacteristic);
+        this.readCharacteristic.addEventListener("characteristicvaluechanged", this.handleNotification.bind(this));
+        await this.readCharacteristic.readValue();
+        return this.readCharacteristic;
     }
 
     handleNotification(vh) {
         const yh = new Uint8Array(vh.target.value.byteLength);
-        for (let bh = 0; bh < vh.target.value.byteLength; bh++)
+        for (let bh = 0; bh < vh.target.value.byteLength; bh++) {
             yh[bh] = vh.target.value.getUint8(bh);
-        this.dispatchEvent(new CustomEvent("receive",{
+        }
+        this.dispatchEvent(new CustomEvent("receive", {
             detail: yh
-        }))
+        }));
     }
 
     startNotifications() {
-        if (!this.readCharacteristic)
-            throw new Error("No read characteristic");
-        if (!this.readCharacteristic.properties.notify)
-            throw new Error("Read characteristic unable to notify.");
-        return this.readCharacteristic.startNotifications()
+        if (!this.readCharacteristic) throw new Error("No read characteristic");
+        if (!this.readCharacteristic.properties.notify) throw new Error("Read characteristic unable to notify.");
+        return this.readCharacteristic.startNotifications();
     }
 
     async disconnect() {
-        if (this.connected = !1,
-        this.transmitting = !1,
-        this.bytesReceived = 0,
-        this.bytesSent = 0,
-        this.closeRequested)
-            return;
-        const vh = async()=>{
-            this.removeEventListener("receive", this.handleReceiveBytes),
-            this.device && (this.device.removeEventListener("disconnect", this.handleDisconnect.bind(this)),
-            this.device.removeEventListener("gattserverdisconnected", this.handleDisconnect),
-            this.readCharacteristic.removeEventListener("characteristicvaluechanged", this.handleNotification.bind(this)),
-            this.device.gatt.connected && this.device.gatt.disconnect(),
-            this.writeCharacteristic = !1,
-            this.readCharacteristic = !1,
-            this.deviceDescription = !1,
-            this.device = null)
+        this.connected = false;
+        this.transmitting = false;
+        this.bytesReceived = 0;
+        this.bytesSent = 0;
+        if (this.closeRequested) return;
+        const vh = async () => {
+            this.removeEventListener("receive", this.handleReceiveBytes);
+            if (this.device) {
+                this.device.removeEventListener("disconnect", this.handleDisconnect.bind(this));
+                this.device.removeEventListener("gattserverdisconnected", this.handleDisconnect);
+                this.readCharacteristic.removeEventListener("characteristicvaluechanged", this.handleNotification.bind(this));
+                if (this.device.gatt.connected) this.device.gatt.disconnect();
+                this.writeCharacteristic = false;
+                this.readCharacteristic = false;
+                this.deviceDescription = false;
+                this.device = null;
+            }
         };
         try {
-            await vh(),
-            console.log(`${this.logHead} Connection with ID: ${this.connectionId} closed, Sent: ${this.bytesSent} bytes, Received: ${this.bytesReceived} bytes`),
-            this.connectionId = !1,
-            this.bitrate = 0,
-            this.dispatchEvent(new CustomEvent("disconnect",{
-                detail: !0
-            }))
+            await vh();
+            console.log(`${this.logHead} Connection with ID: ${this.connectionId} closed, Sent: ${this.bytesSent} bytes, Received: ${this.bytesReceived} bytes`);
+            this.connectionId = false;
+            this.bitrate = 0;
+            this.dispatchEvent(new CustomEvent("disconnect", {
+                detail: true
+            }));
         } catch (yh) {
-            console.error(yh),
-            console.error(`${this.logHead} Failed to close connection with ID: ${this.connectionId} closed, Sent: ${this.bytesSent} bytes, Received: ${this.bytesReceived} bytes`),
-            this.dispatchEvent(new CustomEvent("disconnect",{
-                detail: !1
-            }))
+            console.error(yh);
+            console.error(`${this.logHead} Failed to close connection with ID: ${this.connectionId} closed, Sent: ${this.bytesSent} bytes, Received: ${this.bytesReceived} bytes`);
+            this.dispatchEvent(new CustomEvent("disconnect", {
+                detail: false
+            }));
         } finally {
-            this.openCanceled && (this.openCanceled = !1)
+            if (this.openCanceled) this.openCanceled = false;
         }
     }
 
     async send(vh) {
-        if (!this.writeCharacteristic)
-            return;
+        if (!this.writeCharacteristic) return;
         this.bytesSent += vh.byteLength;
         const yh = new Uint8Array(vh);
-        return await this.writeCharacteristic.writeValue(yh),
-        {
+        await this.writeCharacteristic.writeValue(yh);
+        return {
             bytesSent: vh.byteLength,
             resultCode: 0
-        }
+        };
     }
 }
 
