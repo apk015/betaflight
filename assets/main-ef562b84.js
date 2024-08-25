@@ -41101,7 +41101,7 @@ function Uy() {
                 }),
                 s) {
                 case "landing":
-                    ut(()=>import("./landing-0e9410fb.js"), ["assets/landing-0e9410fb.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css", "assets/Sponsor-b3b14c28.js"]).then(({landing: u})=>u.initialize(c));
+                    ut(()=>import("./betaflight/assets/landing-0e9410fb.js"), ["assets/landing-0e9410fb.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css", "./betaflight/assets/Sponsor-b3b14c28.js"]).then(({landing: u})=>u.initialize(c));
                     break;
                 case "changelog":
                     ut(()=>import("./static_tab-d23fd437.js"), ["assets/static_tab-d23fd437.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css"]).then(({staticTab: u})=>u.initialize("changelog", c));
@@ -41113,7 +41113,7 @@ function Uy() {
                     ut(()=>import("./options-d60ef843.js"), ["assets/options-d60ef843.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css"]).then(({options: u})=>u.initialize(c));
                     break;
                 case "firmware_flasher":
-                    ut(()=>import("./firmware_flasher-00b09d70.js"), ["assets/firmware_flasher-00b09d70.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css", "assets/Sponsor-b3b14c28.js", "assets/generate_filename-b24904f0.js"]).then(({firmware_flasher: u})=>u.initialize(c));
+                    ut(()=>import("./firmware_flasher-00b09d70.js"), ["assets/firmware_flasher-00b09d70.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css", "./betaflight/assets/Sponsor-b3b14c28.js", "assets/generate_filename-b24904f0.js"]).then(({firmware_flasher: u})=>u.initialize(c));
                     break;
                 case "help":
                     ut(()=>import("./help-767fa382.js"), ["assets/help-767fa382.js", "./betaflight/assets/DarkTheme-2fd54461.js", "./betaflight/assets/DarkTheme-3dad4777.css"]).then(({help: u})=>u.initialize(c));
