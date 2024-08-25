@@ -39247,10 +39247,28 @@ const GUI = new GuiControl
     usbVendorId: gh,
     usbProductId: vh
 }));
-function checkBrowserCompatibility() {// Comment out the following block to bypass the browser check
-/*
-    if(!("serial"in navigator)){const vh="Betaflight app requires Chrome, Chromium, Edge or Vivaldi browser.",yh=document.createElement("div");throw $("body").empty().css({height:"100%",display:"grid","background-image":"url(../images/osd-bg-1.jpg","background-size":"cover","background-repeat":"no-repeat"}).append(yh),$("div").append(vh).css({"font-size":"16px","background-color":"var(--surface-200)",color:"var(--text)",padding:"1rem",margin:"auto","border-radius":"0.75rem",border:"2px solid var(--surface-500)"}),new Error("No compatible browser found.")}
-    */
+function checkBrowserCompatibility() {
+    if (!("serial"in navigator)) {
+        const vh = "Betaflight app requires Chrome, Chromium, Edge or Vivaldi browser."
+          , yh = document.createElement("div");
+        throw $("body").empty().css({
+            height: "100%",
+            display: "grid",
+            "background-image": "url(../images/osd-bg-1.jpg",
+            "background-size": "cover",
+            "background-repeat": "no-repeat"
+        }).append(yh),
+        $("div").append(vh).css({
+            "font-size": "16px",
+            "background-color": "var(--surface-200)",
+            color: "var(--text)",
+            padding: "1rem",
+            margin: "auto",
+            "border-radius": "0.75rem",
+            border: "2px solid var(--surface-500)"
+        }),
+        new Error("No compatible browser found.")
+    }
 }
 async function *streamAsyncIterable(gh, vh) {
     try {
@@ -39266,39 +39284,30 @@ async function *streamAsyncIterable(gh, vh) {
 }
 class WebSerial extends EventTarget {
     constructor() {
-        super();
-        this.connected = false;
-        this.openRequested = false;
-        this.openCanceled = false;
-        this.closeRequested = false;
-        this.transmitting = false;
-        this.connectionInfo = null;
-        this.bitrate = 0;
-        this.bytesSent = 0;
-        this.bytesReceived = 0;
-        this.failed = 0;
-        this.logHead = "[SERIAL] ";
-        this.portCounter = 0;
-        this.ports = [];
-        this.port = null;
-        this.reader = null;
-        this.writer = null;
-        this.reading = false;
-        this.connect = this.connect.bind(this);
-
-        // Check if the WebSerial API is available
-        if ('serial' in navigator) {
-            navigator.serial.addEventListener("connect", event => this.handleNewDevice(event.target));
-            navigator.serial.addEventListener("disconnect", event => this.handleRemovedDevice(event.target));
-            this.loadDevices();
-        } else {
-            console.error('WebSerial API not supported in this environment.');
-            // Handle the lack of WebSerial API support, e.g., display a message to the user
-        }
+        super(),
+        checkBrowserCompatibility(),
+        this.connected = !1,
+        this.openRequested = !1,
+        this.openCanceled = !1,
+        this.closeRequested = !1,
+        this.transmitting = !1,
+        this.connectionInfo = null,
+        this.bitrate = 0,
+        this.bytesSent = 0,
+        this.bytesReceived = 0,
+        this.failed = 0,
+        this.logHead = "[SERIAL] ",
+        this.portCounter = 0,
+        this.ports = [],
+        this.port = null,
+        this.reader = null,
+        this.writer = null,
+        this.reading = !1,
+        this.connect = this.connect.bind(this),
+        navigator.serial.addEventListener("connect", vh=>this.handleNewDevice(vh.target)),
+        navigator.serial.addEventListener("disconnect", vh=>this.handleRemovedDevice(vh.target)),
+        this.loadDevices()
     }
-
-    // Your other methods like connect(), handleNewDevice(), handleRemovedDevice(), etc.
-
     handleNewDevice(vh) {
         const yh = this.createPort(vh);
         return this.ports.push(yh),
