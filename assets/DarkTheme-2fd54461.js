@@ -19980,7 +19980,7 @@ var Gt = It.exports
   , Xt = B
   , Jt = 0
   , Zt = Math.random()
-  , Qt = Xt(1.toString)
+  , Qt = Xt((1.toString)
   , te = function(gh) {
     return "Symbol(" + (gh === void 0 ? "" : gh) + ")_" + Qt(++Jt + Zt, 36)
 }
