@@ -39530,7 +39530,33 @@ class BT extends EventTarget {
         this.bluetooth.addEventListener("connect", vh=>this.handleNewDevice(vh.target)),
         this.bluetooth.addEventListener("disconnect", vh=>this.handleRemovedDevice(vh.target)),
         this.bluetooth.addEventListener("gatserverdisconnected", vh=>this.handleRemovedDevice(vh.target)),
-        this.loadDevices()
+        // Removed direct call to loadDevices here
+        // this.loadDevices();
+    }
+
+    // Method to trigger loadDevices in response to a user gesture
+    async triggerLoadDevices() {
+        await this.loadDevices();
+    }
+
+    // Updated loadDevices method to handle user gesture requirement
+    async loadDevices() {
+        try {
+            const device = await this.bluetooth.requestDevice({
+                acceptAllDevices: true,
+                optionalServices: ['battery_service'] // Add your required services here
+            });
+            
+            if (device) {
+                this.portCounter = 1;
+                this.devices = [this.createPort(device)];
+                console.log(`[INFO] Device found: ${device.name}`);
+            } else {
+                console.log(`[INFO] No devices found`);
+            }
+        } catch (error) {
+            console.error(`${this.logHead} Failed to load devices:`, error);
+        }
     }
 
     handleNewDevice(vh) {
@@ -39570,26 +39596,6 @@ class BT extends EventTarget {
             vendorId: "unknown",
             productId: vh.id,
             port: vh
-        }
-    }
-
-    // Updated loadDevices method
-    async loadDevices() {
-        try {
-            const device = await this.bluetooth.requestDevice({
-                acceptAllDevices: true,
-                optionalServices: ['battery_service'] // Add your required services here
-            });
-            
-            if (device) {
-                this.portCounter = 1;
-                this.devices = [this.createPort(device)];
-                console.log(`[INFO] Device found: ${device.name}`);
-            } else {
-                console.log(`[INFO] No devices found`);
-            }
-        } catch (error) {
-            console.error(`${this.logHead} Failed to load devices:`, error);
         }
     }
 
@@ -39738,8 +39744,7 @@ class BT extends EventTarget {
             this.readCharacteristic = !1,
             this.deviceDescription = !1,
             this.device = null)
-        }
-        ;
+        };
         try {
             await vh(),
             console.log(`${this.logHead} Connection with ID: ${this.connectionId} closed, Sent: ${this.bytesSent} bytes, Received: ${this.bytesReceived} bytes`),
