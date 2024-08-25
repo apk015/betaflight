@@ -39532,6 +39532,7 @@ class BT extends EventTarget {
         this.bluetooth.addEventListener("gatserverdisconnected", vh=>this.handleRemovedDevice(vh.target)),
         this.loadDevices()
     }
+
     handleNewDevice(vh) {
         const yh = this.createPort(vh);
         return this.devices.push(yh),
@@ -39540,6 +39541,7 @@ class BT extends EventTarget {
         })),
         yh
     }
+
     handleRemovedDevice(vh) {
         const yh = this.devices.find(bh=>bh.port === vh);
         this.devices = this.devices.filter(bh=>bh.port !== vh),
@@ -39547,16 +39549,20 @@ class BT extends EventTarget {
             detail: yh
         }))
     }
+
     handleReceiveBytes(vh) {
         this.bytesReceived += vh.detail.byteLength
     }
+
     handleDisconnect() {
         this.disconnect(),
         this.closeRequested = !0
     }
+
     getConnectedPort() {
         return this.device
     }
+
     createPort(vh) {
         return {
             path: `bluetooth_${this.portCounter++}`,
@@ -39566,18 +39572,33 @@ class BT extends EventTarget {
             port: vh
         }
     }
+
+    // Updated loadDevices method
     async loadDevices() {
-        const vh = await this.bluetooth.getDevices();
-        this.portCounter = 1,
-        this.devices = vh.map(yh=>this.createPort(yh))
+        try {
+            const device = await this.bluetooth.requestDevice({
+                acceptAllDevices: true,
+                optionalServices: ['battery_service'] // Add your required services here
+            });
+            
+            if (device) {
+                this.portCounter = 1;
+                this.devices = [this.createPort(device)];
+                console.log(`[INFO] Device found: ${device.name}`);
+            } else {
+                console.log(`[INFO] No devices found`);
+            }
+        } catch (error) {
+            console.error(`${this.logHead} Failed to load devices:`, error);
+        }
     }
+
     async requestPermissionDevice() {
         let vh = null;
         const yh = [];
         bluetoothDevices.forEach(wh=>{
             yh.push(wh.serviceUuid)
-        }
-        );
+        });
         const bh = {
             acceptAllDevices: !0,
             optionalServices: yh
@@ -39592,14 +39613,17 @@ class BT extends EventTarget {
         }
         return vh
     }
+
     async getDevices() {
         return this.devices
     }
+
     getAvailability() {
         this.bluetooth.getAvailability().then(vh=>(console.log(`${this.logHead} Bluetooth available:`, vh),
         this.available = vh,
         vh))
     }
+
     async connect(vh, yh) {
         this.openRequested = !0,
         this.closeRequested = !1,
@@ -39638,10 +39662,8 @@ class BT extends EventTarget {
                 this.dispatchEvent(new CustomEvent("connect",{
                     detail: !1
                 }))
-            }
-            )
-        }
-        , 150)) : this.openCanceled ? (console.log(`${this.logHead} Connection didn't open and request was canceled`),
+            })
+        }, 150)) : this.openCanceled ? (console.log(`${this.logHead} Connection didn't open and request was canceled`),
         this.openRequested = !1,
         this.openCanceled = !1,
         this.dispatchEvent(new CustomEvent("connect",{
@@ -39652,10 +39674,12 @@ class BT extends EventTarget {
             detail: !1
         })))
     }
+
     async gattConnect() {
         var vh;
         this.server = await ((vh = this.device.gatt) == null ? void 0 : vh.connect())
     }
+
     async getServices() {
         if (console.log(`${this.logHead} Get primary services`),
         this.services = await this.server.getPrimaryServices(),
@@ -39667,6 +39691,7 @@ class BT extends EventTarget {
         console.log(`${this.logHead} Connected to service:`, this.service.uuid),
         this.service
     }
+
     async getCharacteristics() {
         if ((await this.service.getCharacteristics()).forEach(yh=>(yh.uuid == this.deviceDescription.writeCharacteristic && (this.writeCharacteristic = yh),
         yh.uuid == this.deviceDescription.readCharacteristic && (this.readCharacteristic = yh),
@@ -39678,6 +39703,7 @@ class BT extends EventTarget {
         return this.readCharacteristic.addEventListener("characteristicvaluechanged", this.handleNotification.bind(this)),
         await this.readCharacteristic.readValue()
     }
+
     handleNotification(vh) {
         const yh = new Uint8Array(vh.target.value.byteLength);
         for (let bh = 0; bh < vh.target.value.byteLength; bh++)
@@ -39686,6 +39712,7 @@ class BT extends EventTarget {
             detail: yh
         }))
     }
+
     startNotifications() {
         if (!this.readCharacteristic)
             throw new Error("No read characteristic");
@@ -39693,6 +39720,7 @@ class BT extends EventTarget {
             throw new Error("Read characteristic unable to notify.");
         return this.readCharacteristic.startNotifications()
     }
+
     async disconnect() {
         if (this.connected = !1,
         this.transmitting = !1,
@@ -39730,6 +39758,7 @@ class BT extends EventTarget {
             this.openCanceled && (this.openCanceled = !1)
         }
     }
+
     async send(vh) {
         if (!this.writeCharacteristic)
             return;
@@ -39742,6 +39771,7 @@ class BT extends EventTarget {
         }
     }
 }
+
 const BT$1 = new BT
   , VIRTUAL = "virtual";
 class VirtualSerial {
